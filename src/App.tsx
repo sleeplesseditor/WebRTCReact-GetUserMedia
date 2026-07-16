@@ -1,122 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import * as React from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const myVideoRef = React.useRef(null);
+
+  const otherVideoRef = React.useRef(null);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+    <div className="container row">
+      <div className="buttons col-4">
+          <button id="share" className="btn btn-primary d-block mb-1">Share my mic and camera</button>
+          <button id="show-video" className="btn btn-secondary d-block mb-1">Show My Video</button>
+          <button id="stop-video" className="btn btn-secondary d-block mb-1">Stop My Video</button>
+          <div className="mb-1">
+              <button id="change-size" className="btn btn-secondary mb-1">Change screen size</button>
+              <input type="text" id="vid-width" value="1280"/>
+              <input type="text" id="vid-height" value="720"/>
+          </div>
+          <div className="mb-1">
+              <button id="start-record" className="btn btn-secondary mb-1">Start recording</button>
+              <button id="stop-record" className="btn btn-secondary mb-1">Stop Recording</button>
+              <button id="play-record" className="btn btn-secondary mb-1">Play Recording</button>
+          </div>
+          <button id="share-screen" className="btn btn-secondary d-block mb-1">Share Screen</button>
+          <div>
+              <label>Select audio input: </label>
+              <select id="audio-input"><option>Option</option></select>
+          </div>
+          <div>
+              <label>Select audio output: </label>
+              <select id="audio-output"><option>Option</option></select>
+          </div>
+          <div>
+              <label>Select video input: </label>
+              <select id="video-input"><option>Option</option></select>
+          </div>
+      </div>
+      <div className="videos col-8">
+          <div>
+              <h3>My feed</h3>
+              <video id="my-video" className="video" autoPlay playsInline ref={myVideoRef}></video>
+          </div>
+          <div>
+              <h3>Their feed</h3>
+              <video id="other-video" className="video" autoPlay playsInline ref={otherVideoRef}></video>
+          </div>
+      </div>
+    </div>
   )
 }
 
-export default App
+export default App;
