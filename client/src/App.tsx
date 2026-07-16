@@ -4,8 +4,11 @@ import {
   showMyFeed,
   stopMyFeed
 } from './helpers/feedHelpers';
+import { shareScreen } from './helpers/shareScreenHelpers';
 
 const App = () => {
+  let mediaStream = null;
+
   const myVideoRef = React.useRef(null);
   const otherVideoRef = React.useRef(null);
 
@@ -43,7 +46,13 @@ const App = () => {
               <button id="stop-record" className="btn btn-secondary mb-1">Stop Recording</button>
               <button id="play-record" className="btn btn-secondary mb-1">Play Recording</button>
           </div>
-          <button id="share-screen" className="btn btn-secondary d-block mb-1">Share Screen</button>
+          <button 
+            className="btn btn-secondary d-block mb-1"
+            id="share-screen" 
+            onClick={() => shareScreen(mediaStream)}
+          >
+            Share Screen
+          </button>
           <div>
               <label>Select audio input: </label>
               <select id="audio-input"><option>Option</option></select>
