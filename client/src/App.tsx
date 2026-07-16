@@ -109,7 +109,7 @@ const App = () => {
               <label>Select audio input: </label>
               <select 
                 id="audio-input"
-                onChange={(e) => changeAudioInput(e, stream)} 
+                onChange={(e) => changeAudioInput(e, audioInputRef.current)} 
                 ref={audioInputRef}
               />
           </div>
@@ -117,7 +117,7 @@ const App = () => {
               <label>Select audio output: </label>
               <select 
                 id="audio-output" 
-                onChange={(e) => changeAudioOutput(e, stream)}
+                onChange={(e) => changeAudioOutput(e, myVideoRef.current)}
                 ref={audioOutputRef}
               />
           </div>
@@ -125,7 +125,7 @@ const App = () => {
               <label>Select video input: </label>
               <select 
                 id="video-input"
-                onChange={(e) => changeVideo(e, stream)}
+                onChange={(e) => changeVideo(e, videoInputRef.current)}
                 ref={videoInputRef}
               />
           </div>

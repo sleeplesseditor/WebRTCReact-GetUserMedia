@@ -1,17 +1,17 @@
 const getDevices = async (audioInputEl: any, audioOutputEl: any, videoInputEl: any) =>{
-    try{
+    try {
         const devices = await navigator.mediaDevices.enumerateDevices();
         console.log(devices)
         devices.forEach(d => {
-            const option = document.createElement('option') //create the option tag
-            option.value = d.deviceId
-            option.text = d.label
-            //add the option tag we just created to the right select
+            const option = document.createElement('option');
+            option.value = d.deviceId;
+            option.text = d.label;
+
             if(d.kind === "audioinput"){
                 audioInputEl.appendChild(option)    
-            }else if(d.kind === "audiooutput"){
+            } else if (d.kind === "audiooutput"){
                 audioOutputEl.appendChild(option)    
-            }else if(d.kind === "videoinput"){
+            } else if (d.kind === "videoinput"){
                 videoInputEl.appendChild(option)    
             }
         })
@@ -37,9 +37,17 @@ const changeAudioInput = async (e: any, stream: any) =>{
     }
 }
 
-const changeAudioOutput = async (e: any, videoEl: any) =>{
-    await videoEl.setSinkId(e.target.value)
-    console.log("Changed audio device!")
+const changeAudioOutput = async (e: any, videoElement: any) =>{
+    const deviceId = e.target.value;
+
+    if(!deviceId) return;
+
+    try {
+        await videoElement.setSinkId(e.target.value);
+        console.log('Changed audio output to:', deviceId);
+    } catch (err) {
+        console.error('Could not change audio output:', err);
+    }
 }
 
 const changeVideo = async(e: any, stream: any) => {
