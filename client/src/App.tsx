@@ -40,31 +40,37 @@ const App = () => {
     getDevices(audioInputRef.current, audioOutputRef.current, videoInputRef.current)
   }, []);
 
+  console.log('ST', stream, mediaStream)
+
   return (
-    <div className="container row">
-      <div className="buttons col-4">
-          <button 
-            className="btn btn-primary d-block mb-1"
-            id="share"
-            onClick={handleShare}
-          >
-            Share my mic and camera
-          </button>
-          <button 
-            className="btn btn-secondary d-block mb-1"
-            id="show-video" 
-            onClick={() => showMyFeed(myVideoRef, stream)}
-          >
-            Show My Video
-          </button>
-          <button 
-            className="btn btn-secondary d-block mb-1"
-            id="stop-video" 
-            onClick={() => stopMyFeed(stream)}
-          >
-            Stop My Video
-          </button>
-          <div className="mb-1">
+    <div className="bg-black h-screen grid grid-cols-2 grid-rows-1 gap-4">
+      <div className="p-4">
+        <div className="flex flex-col gap-2">
+          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
+            <button 
+              className="btn btn-primary d-block mb-1"
+              id="share"
+              onClick={handleShare}
+            >
+              Share my mic and camera
+            </button>
+            <button 
+              className="btn btn-secondary d-block mb-1"
+              // disabled={stream === null}
+              id="show-video" 
+              onClick={() => showMyFeed(myVideoRef, stream)}
+            >
+              Show My Video
+            </button>
+            <button 
+              className="btn btn-secondary d-block mb-1"
+              id="stop-video" 
+              onClick={() => stopMyFeed(stream)}
+            >
+              Stop My Video
+            </button>
+          </div>
+          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
               <button 
                 className="btn btn-secondary mb-1"
                 id="change-size" 
@@ -75,7 +81,7 @@ const App = () => {
               <input ref={vidWidthRef} type="number" id="vid-width" defaultValue={1280}/>
               <input ref={vidHeightRef} type="number" id="vid-height" defaultValue={720}/>
           </div>
-          <div className="mb-1">
+          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
               <button 
                 className="btn btn-secondary mb-1"
                 id="start-record"
@@ -98,59 +104,64 @@ const App = () => {
                 Play Recording
               </button>
           </div>
-          <button 
-            className="btn btn-secondary d-block mb-1"
-            id="share-screen" 
-            onClick={() => shareScreen(mediaStream)}
-          >
-            Share Screen
-          </button>
-          <div>
-              <label>Select audio input: </label>
+          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
+            <button 
+              className="btn btn-secondary d-block mb-1"
+              id="share-screen" 
+              onClick={() => shareScreen(mediaStream)}
+            >
+              Share Screen
+            </button>
+          </div>
+          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
+            <div>
+              <label className="text-white font-bold">Select audio input:</label>
               <select 
                 id="audio-input"
                 onChange={(e) => changeAudioInput(e, audioInputRef.current)} 
                 ref={audioInputRef}
               />
-          </div>
-          <div>
-              <label>Select audio output: </label>
+            </div>
+            <div>
+              <label className="text-white font-bold">Select audio output:</label>
               <select 
                 id="audio-output" 
                 onChange={(e) => changeAudioOutput(e, myVideoRef.current)}
                 ref={audioOutputRef}
               />
-          </div>
+            </div>
           <div>
-              <label>Select video input: </label>
+              <label className="text-white font-bold">Select video input:</label>
               <select 
                 id="video-input"
                 onChange={(e) => changeVideo(e, videoInputRef.current)}
                 ref={videoInputRef}
               />
           </div>
+          </div>
+          </div>
       </div>
-      <div className="videos col-8">
-          <div>
-              <h3>My feed</h3>
-              <video 
-                autoPlay 
-                className="video"
-                id="my-video" 
-                playsInline 
-                ref={myVideoRef}   
-              />
-          </div>
-          <div>
-              <h3>Their feed</h3>
-              <video 
-                autoPlay
-                className="video"
-                id="other-video" 
-                playsInline 
-                ref={otherVideoRef}
-              />
-          </div>
+      <div className="p-4 flex flex-col gap-3">
+        <div className="flex flex-col justify-center align-center">
+          <h3 className="text-lg text-white font-bold">My feed</h3>
+          <video 
+            autoPlay 
+            className="video"
+            id="my-video" 
+            playsInline 
+            ref={myVideoRef}   
+          />
+        </div>
+        <div className="flex flex-col justify-center align-center">
+          <h3 className="text-lg text-white font-bold">Their feed</h3>
+          <video 
+            autoPlay
+            className="video"
+            id="other-video" 
+            playsInline 
+            ref={otherVideoRef}
+          />
+        </div>
       </div>
     </div>
   )
