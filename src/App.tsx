@@ -1,16 +1,38 @@
 import * as React from 'react';
+import {
+  shareCameraAndMic,
+  showMyFeed,
+  stopMyFeed
+} from './helpers/feedHelpers';
 
 const App = () => {
   const myVideoRef = React.useRef(null);
-
   const otherVideoRef = React.useRef(null);
 
   return (
     <div className="container row">
       <div className="buttons col-4">
-          <button id="share" className="btn btn-primary d-block mb-1">Share my mic and camera</button>
-          <button id="show-video" className="btn btn-secondary d-block mb-1">Show My Video</button>
-          <button id="stop-video" className="btn btn-secondary d-block mb-1">Stop My Video</button>
+          <button 
+            className="btn btn-primary d-block mb-1"
+            id="share"
+            onClick={shareCameraAndMic}
+          >
+            Share my mic and camera
+          </button>
+          <button 
+            className="btn btn-secondary d-block mb-1"
+            id="show-video" 
+            onClick={() => showMyFeed(myVideoRef)}
+          >
+            Show My Video
+          </button>
+          <button 
+            className="btn btn-secondary d-block mb-1"
+            id="stop-video" 
+            onClick={stopMyFeed}
+          >
+            Stop My Video
+          </button>
           <div className="mb-1">
               <button id="change-size" className="btn btn-secondary mb-1">Change screen size</button>
               <input type="text" id="vid-width" value="1280"/>
