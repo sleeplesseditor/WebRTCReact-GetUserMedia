@@ -43,10 +43,10 @@ const App = () => {
   console.log('ST', stream, mediaStream)
 
   return (
-    <div className="bg-black h-screen grid grid-cols-2 grid-rows-1 gap-4">
+    <div className="bg-slate-700 h-full grid grid-cols-2 grid-rows-1 gap-4">
       <div className="p-4">
         <div className="flex flex-col gap-2">
-          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
+          <div className="p-3 bg-slate-500 rounded-lg shadow-md shadow-[#000000]">
             <button 
               className="btn btn-primary d-block mb-1"
               id="share"
@@ -70,18 +70,32 @@ const App = () => {
               Stop My Video
             </button>
           </div>
-          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
-              <button 
-                className="btn btn-secondary mb-1"
-                id="change-size" 
-                onClick={() => changeVideoSize(vidHeightRef, vidWidthRef, stream)}
-              >
-                Change screen size
-              </button>
-              <input ref={vidWidthRef} type="number" id="vid-width" defaultValue={1280}/>
-              <input ref={vidHeightRef} type="number" id="vid-height" defaultValue={720}/>
+          <div className="p-3 bg-slate-500 rounded-lg shadow-md shadow-[#000000]">
+            <form className="max-w-sm">
+                <button 
+                  className="btn btn-secondary mb-1"
+                  id="change-size" 
+                  onClick={() => changeVideoSize(vidHeightRef, vidWidthRef, stream)}
+                >
+                  Change screen size
+                </button>
+                <input 
+                  className=""
+                  defaultValue={1280}
+                  id="vid-width"
+                  ref={vidWidthRef} 
+                  type="number"
+                />
+                <input 
+                  className=""
+                  defaultValue={720}
+                  id="vid-height"
+                  ref={vidHeightRef}
+                  type="number"
+                />
+              </form>
           </div>
-          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
+          <div className="p-3 bg-slate-500 rounded-lg shadow-md shadow-[#000000]">
               <button 
                 className="btn btn-secondary mb-1"
                 id="start-record"
@@ -104,7 +118,7 @@ const App = () => {
                 Play Recording
               </button>
           </div>
-          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
+          <div className="p-3 bg-slate-500 rounded-lg shadow-md shadow-[#000000]">
             <button 
               className="btn btn-secondary d-block mb-1"
               id="share-screen" 
@@ -113,7 +127,7 @@ const App = () => {
               Share Screen
             </button>
           </div>
-          <div className="p-4 bg-slate-500 rounded-lg shadow-xl">
+          <div className="p-3 bg-slate-500 rounded-lg shadow-md shadow-[#000000]">
             <div>
               <label className="text-white font-bold">Select audio input:</label>
               <select 
@@ -141,7 +155,7 @@ const App = () => {
           </div>
           </div>
       </div>
-      <div className="p-4 flex flex-col gap-3">
+      <div className="p-3 flex flex-col gap-3">
         <div className="flex flex-col justify-center align-center">
           <h3 className="text-lg text-white font-bold">My feed</h3>
           <video 
