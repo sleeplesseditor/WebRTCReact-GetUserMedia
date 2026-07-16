@@ -19,6 +19,7 @@ import {
 import { changeVideoSize } from './helpers/screenSizeHelpers'
 
 const App = () => {
+  const [isMediaStreamAvailable, setIsMediaStreamAvailable] = React.useState<boolean>(false);
   let stream = null as any;
   let mediaStream = null;
 
@@ -34,6 +35,9 @@ const App = () => {
 
   const handleShare = async () => {
     stream = await shareCameraAndMic(stream);
+    if(stream !== null) {
+      setIsMediaStreamAvailable(true);
+    }
   }
 
   React.useEffect(() => {
@@ -56,7 +60,7 @@ const App = () => {
             </button>
             <button 
               className="btn btn-secondary d-block mb-1"
-              // disabled={stream === null}
+              disabled={!isMediaStreamAvailable}
               id="show-video" 
               onClick={() => showMyFeed(myVideoRef, stream)}
             >
@@ -64,6 +68,7 @@ const App = () => {
             </button>
             <button 
               className="btn btn-secondary d-block mb-1"
+              disabled={!isMediaStreamAvailable}
               id="stop-video" 
               onClick={() => stopMyFeed(stream)}
             >
@@ -74,6 +79,7 @@ const App = () => {
             <form className="max-w-sm">
                 <button 
                   className="btn btn-secondary mb-1"
+                  disabled={!isMediaStreamAvailable}
                   id="change-size" 
                   onClick={() => changeVideoSize(vidHeightRef, vidWidthRef, stream)}
                 >
@@ -82,6 +88,7 @@ const App = () => {
                 <input 
                   className=""
                   defaultValue={1280}
+                  disabled={!isMediaStreamAvailable}
                   id="vid-width"
                   ref={vidWidthRef} 
                   type="number"
@@ -89,6 +96,7 @@ const App = () => {
                 <input 
                   className=""
                   defaultValue={720}
+                  disabled={!isMediaStreamAvailable}
                   id="vid-height"
                   ref={vidHeightRef}
                   type="number"
@@ -98,6 +106,7 @@ const App = () => {
           <div className="p-3 bg-slate-500 rounded-lg shadow-md shadow-[#000000]">
               <button 
                 className="btn btn-secondary mb-1"
+                disabled={!isMediaStreamAvailable}
                 id="start-record"
                 onClick={() => startRecording(stream)}
               >
@@ -105,6 +114,7 @@ const App = () => {
               </button>
               <button 
                 className="btn btn-secondary mb-1"
+                disabled={!isMediaStreamAvailable}
                 id="stop-record"
                 onClick={() => stopRecording()}
               >
@@ -112,6 +122,7 @@ const App = () => {
               </button>
               <button 
                 className="btn btn-secondary mb-1"
+                disabled={!isMediaStreamAvailable}
                 id="play-record"
                 onClick={() => playRecording(otherVideoRef)}
               >
@@ -121,6 +132,7 @@ const App = () => {
           <div className="p-3 bg-slate-500 rounded-lg shadow-md shadow-[#000000]">
             <button 
               className="btn btn-secondary d-block mb-1"
+              disabled={!isMediaStreamAvailable}
               id="share-screen" 
               onClick={() => shareScreen(mediaStream)}
             >
