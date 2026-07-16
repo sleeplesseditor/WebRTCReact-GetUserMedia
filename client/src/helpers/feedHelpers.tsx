@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 const constraints = {
     audio: true,
     video: true,
@@ -8,17 +6,19 @@ const constraints = {
 const shareCameraAndMic = async (stream: any) => {
     try {
         stream = await navigator.mediaDevices.getUserMedia(constraints);
+        return stream;
     } catch (error) {
-        console.error('User denied access to constraints', error)
+        console.error('User denied access to constraints', error);
+        return null;
     }
 }
 
-const showMyFeed = async (videoRef: React.RefObject<HTMLVideoElement | null>, stream: any) => {
+const showMyFeed = async (videoRef: any, stream: any) => {
     if(!stream) {
         alert('Stream is still loading...');
         return;
     }
-    if (videoRef?.current) {
+    if (videoRef) {
         videoRef.current.srcObject = stream;
     }
 }

@@ -10,6 +10,13 @@ import {
   startRecording,
   stopRecording
 } from './helpers/screenRecordHelpers';
+import {
+  changeAudioInput,
+  changeAudioOutput,
+  changeVideo,
+  getDevices
+} from './helpers/inputOutputHelpers';
+import { changeVideoSize } from './helpers/screenSizeHelpers'
 
 const App = () => {
   let stream = null as any;
@@ -21,13 +28,25 @@ const App = () => {
   const vidWidthRef = React.useRef(null);
   const vidHeightRef = React.useRef(null);
 
+  const audioInputRef = React.useRef(null);
+  const audioOutputRef = React.useRef(null);
+  const videoInputRef = React.useRef(null);
+
+  const handleShare = async () => {
+    stream = await shareCameraAndMic(stream);
+  }
+
+  React.useEffect(() => {
+    getDevices(audioInputRef.current, audioOutputRef.current, videoInputRef.current)
+  }, []);
+
   return (
     <div className="container row">
       <div className="buttons col-4">
           <button 
             className="btn btn-primary d-block mb-1"
             id="share"
-            onClick={() => shareCameraAndMic(stream)}
+            onClick={handleShare}
           >
             Share my mic and camera
           </button>
@@ -49,11 +68,12 @@ const App = () => {
               <button 
                 className="btn btn-secondary mb-1"
                 id="change-size" 
+                onClick={() => changeVideoSize(vidHeightRef, vidWidthRef, stream)}
               >
                 Change screen size
               </button>
-              <input type="text" id="vid-width" value="1280"/>
-              <input type="text" id="vid-height" value="720"/>
+              <input ref={vidWidthRef} type="number" id="vid-width" defaultValue={1280}/>
+              <input ref={vidHeightRef} type="number" id="vid-height" defaultValue={720}/>
           </div>
           <div className="mb-1">
               <button 
@@ -87,15 +107,27 @@ const App = () => {
           </button>
           <div>
               <label>Select audio input: </label>
-              <select id="audio-input"><option>Option</option></select>
+              <select 
+                id="audio-input"
+                onChange={(e) => changeAudioInput(e, stream)} 
+                ref={audioInputRef}
+              />
           </div>
           <div>
               <label>Select audio output: </label>
-              <select id="audio-output"><option>Option</option></select>
+              <select 
+                id="audio-output" 
+                onChange={(e) => changeAudioOutput(e, stream)}
+                ref={audioOutputRef}
+              />
           </div>
           <div>
               <label>Select video input: </label>
-              <select id="video-input"><option>Option</option></select>
+              <select 
+                id="video-input"
+                onChange={(e) => changeVideo(e, stream)}
+                ref={videoInputRef}
+              />
           </div>
       </div>
       <div className="videos col-8">
