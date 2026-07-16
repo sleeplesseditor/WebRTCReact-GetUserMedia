@@ -5,12 +5,21 @@ import {
   stopMyFeed
 } from './helpers/feedHelpers';
 import { shareScreen } from './helpers/shareScreenHelpers';
+import {
+  playRecording,
+  startRecording,
+  stopRecording
+} from './helpers/screenRecordHelpers';
 
 const App = () => {
+  let stream = null as any;
   let mediaStream = null;
 
   const myVideoRef = React.useRef(null);
   const otherVideoRef = React.useRef(null);
+
+  const vidWidthRef = React.useRef(null);
+  const vidHeightRef = React.useRef(null);
 
   return (
     <div className="container row">
@@ -18,33 +27,56 @@ const App = () => {
           <button 
             className="btn btn-primary d-block mb-1"
             id="share"
-            onClick={shareCameraAndMic}
+            onClick={() => shareCameraAndMic(stream)}
           >
             Share my mic and camera
           </button>
           <button 
             className="btn btn-secondary d-block mb-1"
             id="show-video" 
-            onClick={() => showMyFeed(myVideoRef)}
+            onClick={() => showMyFeed(myVideoRef, stream)}
           >
             Show My Video
           </button>
           <button 
             className="btn btn-secondary d-block mb-1"
             id="stop-video" 
-            onClick={stopMyFeed}
+            onClick={() => stopMyFeed(stream)}
           >
             Stop My Video
           </button>
           <div className="mb-1">
-              <button id="change-size" className="btn btn-secondary mb-1">Change screen size</button>
+              <button 
+                className="btn btn-secondary mb-1"
+                id="change-size" 
+              >
+                Change screen size
+              </button>
               <input type="text" id="vid-width" value="1280"/>
               <input type="text" id="vid-height" value="720"/>
           </div>
           <div className="mb-1">
-              <button id="start-record" className="btn btn-secondary mb-1">Start recording</button>
-              <button id="stop-record" className="btn btn-secondary mb-1">Stop Recording</button>
-              <button id="play-record" className="btn btn-secondary mb-1">Play Recording</button>
+              <button 
+                className="btn btn-secondary mb-1"
+                id="start-record"
+                onClick={() => startRecording(stream)}
+              >
+                Start recording
+              </button>
+              <button 
+                className="btn btn-secondary mb-1"
+                id="stop-record"
+                onClick={() => stopRecording()}
+              >
+                Stop Recording
+              </button>
+              <button 
+                className="btn btn-secondary mb-1"
+                id="play-record"
+                onClick={() => playRecording(otherVideoRef)}
+              >
+                Play Recording
+              </button>
           </div>
           <button 
             className="btn btn-secondary d-block mb-1"
@@ -69,11 +101,23 @@ const App = () => {
       <div className="videos col-8">
           <div>
               <h3>My feed</h3>
-              <video id="my-video" className="video" autoPlay playsInline ref={myVideoRef}></video>
+              <video 
+                autoPlay 
+                className="video"
+                id="my-video" 
+                playsInline 
+                ref={myVideoRef}   
+              />
           </div>
           <div>
               <h3>Their feed</h3>
-              <video id="other-video" className="video" autoPlay playsInline ref={otherVideoRef}></video>
+              <video 
+                autoPlay
+                className="video"
+                id="other-video" 
+                playsInline 
+                ref={otherVideoRef}
+              />
           </div>
       </div>
     </div>

@@ -1,12 +1,11 @@
 import * as React from 'react';
 
-let stream = null as any;
 const constraints = {
     audio: true,
     video: true,
 }
 
-const shareCameraAndMic = async () => {
+const shareCameraAndMic = async (stream: any) => {
     try {
         stream = await navigator.mediaDevices.getUserMedia(constraints);
     } catch (error) {
@@ -14,7 +13,7 @@ const shareCameraAndMic = async () => {
     }
 }
 
-const showMyFeed = async (videoRef: React.RefObject<HTMLVideoElement | null>) => {
+const showMyFeed = async (videoRef: React.RefObject<HTMLVideoElement | null>, stream: any) => {
     if(!stream) {
         alert('Stream is still loading...');
         return;
@@ -22,11 +21,9 @@ const showMyFeed = async (videoRef: React.RefObject<HTMLVideoElement | null>) =>
     if (videoRef?.current) {
         videoRef.current.srcObject = stream;
     }
-    const tracks = stream.getTracks();
-    console.log('TRACKS', tracks);
 }
 
-const stopMyFeed = () => {
+const stopMyFeed = (stream: any) => {
     if(!stream) {
         return;
     }
