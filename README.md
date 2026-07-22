@@ -17,6 +17,7 @@ An initial introduction to the use of the [MediaStreams Web API](https://develop
 
 ## Changes from Original Project
 - Revised JavaScript solution to Vite-based React project
+- Replaced original CSS styling with basic Tailwind setup
 - Updated script files to work as helper functions with use of React element Refs
 
 ## Further Potential Improvements
